@@ -44,17 +44,19 @@ Aby poprawnie uruchomić program należy podać jako argument uruchomienia nazw�
 \newline\newline
 Kolejnym krokiem jest wybranie żądanej operacji. Użytkownik chcąc uzyskać najkorzystniejszą ścieżkę wymiany walut powinien podać trzy argumenty: waluta wejściowa, kwota, waluta wyjściowa. Każdy z tych argumentów powinien być oddzielony białym znakiem. Jeśli jednak użytkownik chce otrzymać arbitraż walutowy powinien podać tylko jeden argument czyli kwotę.
 \newline\newline
+Działanie programu kończy się poprzez wpisanie polecenia "WYJSCIE" w linii komend.  
+\newline\newline
 
 
 
 \section{Sytuacje wyjątkowe}
 Przewidujemy, że mogą wystąpić sytuacje wyjątkowe. W przypadku poniższych
-nastąpi następujące działanie programu:
+wystąpi następujące działanie programu:
 
 \begin{enumerate}
 \item Użytkownik nie podał argumentu wejściowego czyli nazwy pliku z danymi - program wyświetli wyświetli komunikat o błędzie oraz zakończy działanie. Treść komunikatu: \begin{verbatim}Błąd 01: Nie podano argumentu wejściowego.\end{verbatim}
 \item Plik o podanej przez użytkownika nazwie nie istnieje. Treść komunikatu: \begin{verbatim}Błąd 02: Nie znaleziono żądanego pliku\end{verbatim}
-\item Nie można było uzyskać dostępu do pliku, ponieważ jest chroniony. Treść komunikatu: \begin{verbatim}Błąd 03: Program nie może uzyskać dostępu do pliku - brak odpowiednich uprawnień\end{verbatim}
+\item Nie można było uzyskać dostępu do pliku, ponieważ jest chroniony. Treść komunikatu: \begin{verbatim}Błąd 03: Program nie może uzyskać dostępu do pliku - brak uprawnień\end{verbatim}
 \item Wystąpił problem z formatem danych w pliku. Użytkownik otrzyma informację o błędnej linijce oraz możliwe sposoby rozwiązania problemu. Treść komunikatu:\begin{verbatim}Ostrzeżenie 01: Błąd przy odczytywaniu pliku w linii X.
 Wpisz "E", aby edytować linię, wpisując "P" pominiesz ją,
 natomiast "W" zakończy działanie programu. \end{verbatim}
