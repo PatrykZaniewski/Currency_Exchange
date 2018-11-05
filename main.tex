@@ -1,0 +1,65 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+
+\title{Specyfikacja funkcjonalna}
+\author{Patryk Zaniewski}
+\date{11.11.2018}
+
+\usepackage{natbib}
+\usepackage{graphicx}
+\usepackage{polski}
+
+\begin{document}
+
+\maketitle
+\tableofcontents
+\newpage
+
+\section{Opis projektu}
+Jeremi, Stanisław, Tadeusz, Alojzy i Rajmund są spekulantami na rynku walut Forex. Ich celem jest osiągnięcie jak największego zysku na handlu walutami, w myśl starej zasady: "Kup tanio, sprzedaj drogo". W związku z tym potrzebują programu, który rozwiąże ich problem. Do dyspozycji oddają nam plik tekstowy podzielony na dwie części.
+\newline\newline
+Pierwsza z nich dotyczy aktualnych kursów walut. Każda z linii zbudowana jest w następujący sposób:
+\begin{itemize}
+    \item ID waluty (np. 0, 1, 2 ...)
+    \item Symbol waluty (np. EUR, GBP, USD)
+    \item Pełna nazwa (np. euro, dolar amerykański, funt brytyjski)
+\end{itemize}
+Druga część pliku zawiera aktualne kursy wymiany walut wraz z kosztami tych operacji. Każda z linii zbudowana jest w następujący sposób:
+\begin{itemize}
+    \item ID kursu (np. 0, 1, 2 ...)
+    \item Symbol waluty wejściowej (np. EUR, GBP, USD)
+    \item Symbol waluty wyjściowej (np. EUR, GBP, USD)
+    \item Aktualny kurs wymiany
+    \item Typ opłaty pobieranej przy przewalutowaniu (Stała lub procentowa, pobierana od waluty wyjściowej)
+    \item Opłata
+\end{itemize}
+
+\section{Funkcjonalność}
+Program służy do wyznaczania najkorzystniejszej ścieżki wymiany walut i/lub wyznaczania arbitrażu walutowego. 
+\newline\newline Jako argument wejściowy przyjmowany jest plik z danymi dotyczącymi walut. Po załadowaniu pliku program wyświetla informacje w jaki sposób użytkownik powinien wprowadzać dane do konsoli, aby otrzymać wynik oczekiwanej wymiany lub arbitrażu. Po wprowadzeniu danych następuje wyznaczenie najkorzystniejszej ścieżki, bądź arbitrażu.
+\newline\newline Jako wynik końcowy użytkownik otrzymuje w zależności od wyboru, maksymalny możliwy zarobek z wymiany walut wraz z historią ich wymian lub ścieżkę arbitrażu dowolnej waluty. W przypadku, gdy wymiana lub osiągnięcie arbitrażu będzie niemożliwe użytkownik otrzyma stosowną informację.
+
+\section{Komunikacja z programem}
+Aby poprawnie uruchomić program należy podać jako argument uruchomienia nazwę pliku zawierającego aktualne kursy walut.
+\newline\newline
+Kolejnym krokiem jest wybranie żądanej operacji. Użytkownik chcąc uzyskać najkorzystniejszą ścieżkę wymiany walut powinien podać trzy argumenty: waluta wejściowa, kwota, waluta wyjściowa. Każdy z tych argumentów powinien być oddzielony białym znakiem. Jeśli jednak użytkownik chce otrzymać arbitraż walutowy powinien podać tylko jeden argument czyli kwotę.
+\newline\newline
+
+
+
+\section{Sytuacje wyjątkowe}
+Przewidujemy, że mogą wystąpić sytuacje wyjątkowe. W przypadku poniższych
+nastąpi następujące działanie programu:
+
+\begin{enumerate}
+\item Użytkownik nie podał argumentu wejściowego czyli nazwy pliku z danymi - program wyświetli wyświetli komunikat o błędzie oraz zakończy działanie. Treść komunikatu: \begin{verbatim}Błąd 01: Nie podano argumentu wejściowego.\end{verbatim}
+\item Plik o podanej przez użytkownika nazwie nie istnieje. Treść komunikatu: \begin{verbatim}Błąd 02: Nie znaleziono żądanego pliku\end{verbatim}
+\item Nie można było uzyskać dostępu do pliku, ponieważ jest chroniony. Treść komunikatu: \begin{verbatim}Błąd 03: Program nie może uzyskać dostępu do pliku - brak uprawnień\end{verbatim}
+\item Wystąpił problem z formatem danych w pliku. Użytkownik otrzyma informację o błędnej linijce oraz możliwe sposoby rozwiązania problemu. Treść komunikatu:\begin{verbatim}Ostrzeżenie 01: Błąd przy odczytywaniu pliku w linii X.
+Wpisz "E", aby edytować linię, wpisując "P" pominiesz ją,
+natomiast "W" zakończy działanie programu. \end{verbatim}
+\item Użytkownik wybrał nieistniejącą walutę jako walutę wejściową. Treść komunikatu:\begin{verbatim}Błąd 04: Waluta wejściowa nie istnieje w pliku.\end{verbatim}
+\item Użytkownik wybrał nieistniejącą walutę jako walutę wyjściowa. Treść komunikatu:\begin{verbatim}Błąd 05: Waluta wyjściowa nie istnieje w pliku.\end{verbatim}
+\item Użytkownik podał ujemną kwotę wymiany. Treść komunikatu:\begin{verbatim}Błąd 06: Kwota wymiany mniejsza od 0.\end{verbatim}
+\end{enumerate}
+\end{document}
