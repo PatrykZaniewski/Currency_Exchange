@@ -28,7 +28,9 @@ Program poza standardowymi algorytmami wczytania, walidacji oraz wypisania danyc
 \newline\newline
 Algorytm przekazywania i umieszczania danych w strukturze będzie opierał się na liście list. Każda z walut będzie posiadała własną listę sąsiadów z której będzie można odczytać do jakiej innej waluty wyjściowej możemy przewalutować aktualną walutę. Dodatkowo, graf będzie zawierał informacje o kursach między walutami oraz o opłatach ponoszonych przy wymianie.
 \newline\newline
-Algorytmem odpowiedzialnym za wyszukanie najkorzystniejszej ścieżki wymiany walut będzie algorytm Bellmana-Forda. Jednak dla jego poprawnego działania należy wszystkie koszty przewalutowań przedstawić w postaci: \textbf{1/koszt przewalutowania}. Sprawi to, że algorytm wyznaczy najkrótszą ścieżkę dla odwróconych liczb, a co za tym idzie największy mnożnik przewalutowania między walutą wejściową, a wyjściową.
+Algorytmem odpowiedzialnym za wyszukanie najkorzystniejszej ścieżki wymiany walut będzie algorytm Bellmana-Forda. Jednak dla jego poprawnego działania należy wszystkie koszty przewalutowań przedstawić w postaci: \textbf{1/koszt przewalutowania}. Sprawi to, że algorytm wyznaczy najkrótszą ścieżkę w grafie dla odwróconych liczb (jeśli jest ona możliwa), a co za tym idzie największy mnożnik przewalutowania między walutą wejściową, a wyjściową.
+\newline\newline
+Algorytmem odpowiedzialnym za wyszukiwanie arbitrażu walutowego również będzie algorytm Bellmana-Forda. Jednak w tym przypadku wyszukiwanie najkrótszych ścieżek nie będzie jego głównym zadaniem. W tym przypadku będzie odpowiedzialny za zwrócenie ścieżki wymiany w której nastąpił arbitraż.
 
 
  
