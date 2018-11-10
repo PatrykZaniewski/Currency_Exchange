@@ -1,4 +1,4 @@
-\documentclass{article}
+﻿\documentclass{article}
 \usepackage[utf8]{inputenc}
 
 \title{Specyfikacja funkcjonalna}
@@ -8,9 +8,9 @@
 \usepackage{natbib}
 \usepackage{graphicx}
 \usepackage{polski}
+\usepackage{indentfirst}
 
 \begin{document}
-
 \maketitle
 \tableofcontents
 \newpage
@@ -20,22 +20,22 @@ Jeremi, Stanisław, Tadeusz, Alojzy i Rajmund są spekulantami na rynku walut Fo
 \newline\newline
 Pierwsza z nich dotyczy aktualnych kursów walut. Każda z linii zbudowana jest w następujący sposób:
 \begin{itemize}
-    \item ID waluty (np. 0, 1, 2 ...)
-    \item Symbol waluty (np. EUR, GBP, USD)
-    \item Pełna nazwa (np. euro, dolar amerykański, funt brytyjski)
+    \item ID waluty (np. 0, 1, 2 ...),
+    \item Symbol waluty (np. EUR, GBP, USD),
+    \item Pełna nazwa (np. euro, dolar amerykański, funt brytyjski),
 \end{itemize}
 Druga część pliku zawiera aktualne kursy wymiany walut wraz z kosztami tych operacji. Każda z linii zbudowana jest w następujący sposób:
 \begin{itemize}
-    \item ID kursu (np. 0, 1, 2 ...)
-    \item Symbol waluty wejściowej (np. EUR, GBP, USD)
-    \item Symbol waluty wyjściowej (np. EUR, GBP, USD)
-    \item Aktualny kurs wymiany
-    \item Typ opłaty pobieranej przy przewalutowaniu (Stała lub procentowa, pobierana od waluty wyjściowej)
-    \item Opłata
+    \item ID kursu (np. 0, 1, 2 ...),
+    \item Symbol waluty wejściowej (np. EUR, GBP, USD),
+    \item Symbol waluty wyjściowej (np. EUR, GBP, USD),
+    \item Aktualny kurs wymiany,
+    \item Typ opłaty pobieranej przy przewalutowaniu (Stała lub procentowa, pobierana od waluty wyjściowej),
+    \item Opłata.
 \end{itemize}
 
 \section{Funkcjonalność}
-Program służy do wyznaczania najkorzystniejszej ścieżki wymiany walut i/lub wyznaczania arbitrażu walutowego. 
+Program służy do wyznaczania najkorzystniejszej ścieżki wymiany walut oraz do wyznaczania arbitrażu walutowego. 
 \newline\newline Jako argument wejściowy przyjmowany jest plik z danymi dotyczącymi walut. Po załadowaniu pliku program wyświetla informacje w jaki sposób użytkownik powinien wprowadzać dane do konsoli, aby otrzymać wynik oczekiwanej wymiany lub arbitrażu. Po wprowadzeniu danych następuje wyznaczenie najkorzystniejszej ścieżki, bądź arbitrażu.
 \newline\newline Jako wynik końcowy użytkownik otrzymuje w zależności od wyboru, maksymalny możliwy zarobek z wymiany walut wraz z historią ich wymian lub ścieżkę arbitrażu dowolnej waluty. W przypadku, gdy wymiana lub osiągnięcie arbitrażu będzie niemożliwe użytkownik otrzyma stosowną informację.
 
@@ -60,6 +60,7 @@ wystąpi następujące działanie programu:
 \item Wystąpił problem z formatem danych w pliku. Użytkownik otrzyma informację o błędnej linijce oraz możliwe sposoby rozwiązania problemu. Treść komunikatu:\begin{verbatim}Ostrzeżenie 01: Błąd przy odczytywaniu pliku w linii X.
 Wpisz "E", aby edytować linię, wpisując "P" pominiesz ją,
 natomiast "W" zakończy działanie programu. \end{verbatim}
+\ \\
 \item Użytkownik wybrał nieistniejącą walutę jako walutę wejściową. Treść komunikatu:\begin{verbatim}Błąd 04: Waluta wejściowa nie istnieje w pliku.\end{verbatim}
 \item Użytkownik wybrał nieistniejącą walutę jako walutę wyjściowa. Treść komunikatu:\begin{verbatim}Błąd 05: Waluta wyjściowa nie istnieje w pliku.\end{verbatim}
 \item Użytkownik podał ujemną kwotę wymiany. Treść komunikatu:\begin{verbatim}Błąd 06: Kwota wymiany mniejsza od 0.\end{verbatim}
