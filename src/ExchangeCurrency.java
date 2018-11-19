@@ -29,11 +29,15 @@ public class ExchangeCurrency {
                     for (Pair<Integer, ChangeCost> para : list) {
                         int v = para.getKey();
                         double multipler = 1 / para.getValue().getMultipler();
-                        //TODO liczenie procent czy stala
-                        double cost = para.getValue().getCost();
-                        double newCost = 1 / (1 / (dist[u] * multipler) - cost);
-                        if (dist[v] > newCost) {
-                            dist[v] = newCost;
+                        double cost = 0;
+                        if (para.getValue().getIsPercent()) {
+                            cost = 1 / (dist[u] * multipler) * para.getValue().getCost() / 100;
+                        } else {
+                            cost = para.getValue().getCost();
+                        }
+                        double afterExchange = 1 / (1 / (dist[u] * multipler) - cost);
+                        if (dist[v] > afterExchange) {
+                            dist[v] = afterExchange;
                             prev[v] = u;
                         }
                     }
@@ -41,16 +45,20 @@ public class ExchangeCurrency {
                 }
             }
         }
-        /*
+
         for (int i = 0; i < V; i++) {
             System.out.println(i + " " + 1 / dist[i] + " " + prev[i]);
-        }*/
+        }
 
         Stack<Integer> stack = new Stack<>();
         stack.push(dst);
+
         int u = dst;
         while (prev[u] != u) {
             u = prev[u];
+            if (stack.search(u) > 0) {
+                return -1;
+            }
             stack.push(u);
         }
         if (stack.peek() != src) {
@@ -59,6 +67,7 @@ public class ExchangeCurrency {
         double wynik = amount;
         while (stack.size() > 1) {
             u = stack.pop();
+            System.out.print(graph.getCurrencyShortName(u) + " -> ");
             int v = stack.peek();
             LinkedList<Pair<Integer, ChangeCost>> lista = graph.getList().get(u);
             for (Pair x : lista) {
@@ -66,7 +75,6 @@ public class ExchangeCurrency {
                     ChangeCost change = (ChangeCost) x.getValue();
                     double multipler = change.getMultipler();
                     double cost = change.getCost();
-                    System.out.println(multipler + " " + cost);
                     if (change.getIsPercent()) {
                         wynik = wynik * multipler;
                         wynik = wynik - (wynik * cost / 100);
@@ -76,6 +84,7 @@ public class ExchangeCurrency {
                 }
             }
         }
+        System.out.println(graph.getCurrencyShortName(dst));
         return wynik;
     }
 }
