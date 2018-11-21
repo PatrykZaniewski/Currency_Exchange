@@ -4,9 +4,8 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 
 public class Graph {
+    private ArrayList<Pair<String, String>> nameOfCurrency = new ArrayList<>();
     private ArrayList<LinkedList<Pair<Integer, ChangeCost>>> list;
-    public ArrayList<Pair<String, String>> nameOfCurrency = new ArrayList<>();
-
     private int V = 0;
     private int E = 0;
 
@@ -17,7 +16,7 @@ public class Graph {
             list.add(new LinkedList<>());
             String[] splited = listOfCurrency.get(i).split(", ");
 
-            if(splited.length == 4){
+            if (splited.length == 4) {
                 splited[2] = splited[2] + " " + splited[3];
             }
             nameOfCurrency.add(new Pair<>(splited[2], splited[1]));
@@ -30,7 +29,7 @@ public class Graph {
         E++;
     }
 
-    public int getCurrencyID(String shortName) {
+    int getCurrencyID(String shortName) {
         int i = 0;
         for (Pair currencyPair : nameOfCurrency) {
             if (currencyPair.getValue().equals(shortName)) {
@@ -41,27 +40,19 @@ public class Graph {
         return -1;
     }
 
-    public String getCurrencyShortName(int id) {
+    String getCurrencyShortName(int id) {
         return nameOfCurrency.get(id).getValue();
     }
 
-    public ArrayList<LinkedList<Pair<Integer, ChangeCost>>> getList() {
+    ArrayList<LinkedList<Pair<Integer, ChangeCost>>> getList() {
         return list;
     }
 
-    public void setList(ArrayList<LinkedList<Pair<Integer, ChangeCost>>> list) {
-        this.list = list;
-    }
-
-    public int getV() {
+    int getV() {
         return V;
     }
 
-    public void setV(int V) {
-        this.V = V;
-    }
-
-    public int getE() {
+    int getE() {
         return E;
     }
 }

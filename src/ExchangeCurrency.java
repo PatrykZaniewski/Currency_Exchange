@@ -27,10 +27,10 @@ public class ExchangeCurrency {
                 int u = 0;
                 for (LinkedList<Pair<Integer, ChangeCost>> list : graph.getList()) {
                     for (Pair<Integer, ChangeCost> para : list) {
-                        if(u != dst) {
+                        if (u != dst) {
                             int v = para.getKey();
                             double multipler = 1 / para.getValue().getMultipler();
-                            double cost = 0;
+                            double cost;
                             if (para.getValue().getIsPercent()) {
                                 cost = 1 / (dist[u] * multipler) * para.getValue().getCost() / 100;
                             } else {
@@ -48,14 +48,11 @@ public class ExchangeCurrency {
             }
         }
 
-       /* for (int i = 0; i < V; i++) {
-            System.out.println(i + " " + 1 / dist[i] + " " + prev[i]);
-        }*/
-
         Stack<Integer> stack = new Stack<>();
         stack.push(dst);
 
         int u = dst;
+        //TODO spróbować osiągnąć jednokrotne przejście po arbitrażu
         while (prev[u] != u) {
             u = prev[u];
             if (stack.search(u) > 0) {
