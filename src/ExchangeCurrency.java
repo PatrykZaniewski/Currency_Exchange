@@ -27,18 +27,20 @@ public class ExchangeCurrency {
                 int u = 0;
                 for (LinkedList<Pair<Integer, ChangeCost>> list : graph.getList()) {
                     for (Pair<Integer, ChangeCost> para : list) {
-                        int v = para.getKey();
-                        double multipler = 1 / para.getValue().getMultipler();
-                        double cost = 0;
-                        if (para.getValue().getIsPercent()) {
-                            cost = 1 / (dist[u] * multipler) * para.getValue().getCost() / 100;
-                        } else {
-                            cost = para.getValue().getCost();
-                        }
-                        double afterExchange = 1 / (1 / (dist[u] * multipler) - cost);
-                        if (dist[v] > afterExchange) {
-                            dist[v] = afterExchange;
-                            prev[v] = u;
+                        if(u != dst) {
+                            int v = para.getKey();
+                            double multipler = 1 / para.getValue().getMultipler();
+                            double cost = 0;
+                            if (para.getValue().getIsPercent()) {
+                                cost = 1 / (dist[u] * multipler) * para.getValue().getCost() / 100;
+                            } else {
+                                cost = para.getValue().getCost();
+                            }
+                            double afterExchange = 1 / (1 / (dist[u] * multipler) - cost);
+                            if (dist[v] > afterExchange && afterExchange > 0) {
+                                dist[v] = afterExchange;
+                                prev[v] = u;
+                            }
                         }
                     }
                     u++;
@@ -46,9 +48,9 @@ public class ExchangeCurrency {
             }
         }
 
-        for (int i = 0; i < V; i++) {
+       /* for (int i = 0; i < V; i++) {
             System.out.println(i + " " + 1 / dist[i] + " " + prev[i]);
-        }
+        }*/
 
         Stack<Integer> stack = new Stack<>();
         stack.push(dst);

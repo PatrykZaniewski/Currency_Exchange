@@ -1,9 +1,10 @@
 import java.text.DecimalFormat;
 import java.util.Scanner;
 
-
 public class Main {
 
+    private static Graph graph;
+    
     private static boolean isAlpha(String name) {
         char[] chars = name.toCharArray();
 
@@ -16,14 +17,15 @@ public class Main {
     }
 
     public static void main(String[] args) {
-        Graph graf = new Graph(4);
-        graf.addEdge(0, 1, 0.8889, 0.0001, true);
-        graf.addEdge(1, 2, 1.2795, 0.0000, true);
-        graf.addEdge(2, 3, 0.8, 0.0250, false);
-        graf.addEdge(2, 1, 0.7, 0.0250, false);
+        DataRead read = new DataRead("src/test.txt");
+        graph = read.readFile();
+        if(graph == null)
+        {
+            System.out.println("Program zostal przerwany w czasie wczytywania danych");
+        }
 
         while (true) {
-            ExchangeCurrency exchange = new ExchangeCurrency(graf);
+            ExchangeCurrency exchange = new ExchangeCurrency(graph);
             //FindArbitration arbitration = new FindArbitration(graf);
             Scanner odczyt = new Scanner(System.in);
             String text = odczyt.nextLine();
@@ -33,53 +35,59 @@ public class Main {
                 if (splited[0].equals("wyjscie") || splited[0].equals("Wyjscie") || splited[0].equals("WYJSCIE")) {
                     break;
                 }
-                try {
-                    double stringToDouble = Double.parseDouble(splited[0]);
-                    //TODO arbitraz
-                } catch (NumberFormatException e) {
-                    System.out.println("Podany argument arbitrazu zawiera znaki inne niż cyfry.");
+                if (splited[0].equals("help")) {
+                    System.out.println("Aby wyznaczyc arbitraz podaj jeden argument - ilość waluty");
+                    System.out.println("Aby wyznaczyć najkorzystniejszą ścieżkę wymiany waluty podaj 3 argumenty oddzielone białym znakiem - skrót waluty wejściowej, ilość waluty, skrót waluty wyjściowej");
+                } else {
+                    try {
+                        double stringToDouble = Double.parseDouble(splited[0]);
+                        //TODO arbitraz
+                    } catch (NumberFormatException e) {
+                        System.out.println("Błąd 09: Podany argument arbitrazu zawiera znaki inne niż cyfry.");
+                    }
                 }
             } else if (splited.length == 2) {
-                System.out.println("Brak jednego z argumentow potrzebnych do wyszukania korzystnej wymiany waluty");
+                System.out.println("Błąd 10: Brak jednego z argumentow potrzebnych do wyszukania korzystnej wymiany waluty");
             } else if (splited.length > 2) {
                 boolean firstArgErr = false;
                 boolean secondArgErr = false;
                 double amount = 0;
                 if (splited.length > 3) {
-                    System.out.println("Podano wiecej argumentow niz wymaga tego algorytm wyliczania najkorzystniejszej sciezki wymiany walut. Zostaly wczytane tylko pierwsze 3 argumenty");
+                    System.out.println("Ostrzeżenie 02: Podano wiecej argumentow niz wymaga tego algorytm wyliczania najkorzystniejszej sciezki wymiany walut. Zostaly wczytane tylko pierwsze 3 argumenty.");
                 }
                 if (!isAlpha(splited[0])) {
                     firstArgErr = true;
-                    System.out.println("Pierwszy z argumentow zawiera znaki inne niz litery");
+                    System.out.println("Błąd 07: Pierwszy z argumentow zawiera znaki inne niz litery");
                 }
                 if (!isAlpha(splited[2])) {
                     secondArgErr = true;
-                    System.out.println("Trzeci z argumentow zawiera znaki inne niz litery");
+                    System.out.println("Błąd 08: Trzeci z argumentow zawiera znaki inne niz litery");
                 }
                 try {
                     amount = Double.parseDouble(splited[1]);
                     if (amount < 0) {
-                        System.out.println("Ilosc waluty nie moze byc ujemna");
+                        System.out.println("Błąd 06: Kwota wymiany mniejsza od 0.");
                     } else {
                         if (!secondArgErr && !firstArgErr) {
                             boolean firstArgNotExist = false;
                             boolean secondArgNotExist = false;
-                            int src = graf.getCurrencyID(splited[0]);
-                            int dst = graf.getCurrencyID(splited[2]);
+                            int src = graph.getCurrencyID(splited[0]);
+                            int dst = graph.getCurrencyID(splited[2]);
                             if (src == -1) {
                                 firstArgNotExist = true;
-                                System.out.println("Waluta wejsciowa nie istnieje w pliku");
+                                System.out.println("Błąd 04: Waluta wejściowa nie istnieje w pliku.");
                             }
                             if (dst == -1) {
                                 secondArgNotExist = true;
-                                System.out.println("Waluta wyjściowa nie istnie w pliku");
+                                System.out.println("Błąd 05: Waluta wyjściowa nie istnieje w pliku.");
                             }
                             if (!firstArgNotExist && !secondArgNotExist) {
+                                //System.out.println(src + " " + amount + " "+ dst);
                                 double wynik = exchange.BellmanFord(src, amount, dst);
                                 if (wynik == 0) {
-                                    System.out.println("Nie mozna wymienic walut gdyz nie istnieje miedzy nimi bezposrednie albo posrednie polaczenie");
+                                    System.out.println("Nie mozna wymienic walut gdyz nie istnieje miedzy nimi bezposrednie albo posrednie polaczenie.");
                                 } else if (wynik == -1) {
-                                    System.out.println("Na sciezce wymiany istnieje arbitraz wymiany walut co prowadzi do osiagniecia nieskonczonego wyniku");
+                                    System.out.println("Na sciezce wymiany istnieje arbitraz wymiany walut co prowadzi do osiagniecia nieskonczonego wyniku.");
                                 } else {
                                     DecimalFormat df = new DecimalFormat("###.##");
                                     System.out.println("Wynik końcowy wymiany: " + df.format(wynik));

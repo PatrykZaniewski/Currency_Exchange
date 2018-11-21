@@ -5,22 +5,22 @@ import java.util.LinkedList;
 
 public class Graph {
     private ArrayList<LinkedList<Pair<Integer, ChangeCost>>> list;
-    private ArrayList<Pair<String, String>> nameOfCurrency = new ArrayList<>();
+    public ArrayList<Pair<String, String>> nameOfCurrency = new ArrayList<>();
 
     private int V = 0;
     private int E = 0;
 
-    public Graph(int n) {
-        V = n;
+    public Graph(ArrayList<String> listOfCurrency) {
+        V = listOfCurrency.size();
         list = new ArrayList<>();
-        char x = 'A';
-        for (int i = 0; i < n; i++) {
+        for (int i = 0; i < V; i++) {
             list.add(new LinkedList<>());
-            StringBuilder sb = new StringBuilder();
-            sb.append(x);
-            String y = sb.toString();
-            nameOfCurrency.add(new Pair<>(y + y + y, y));
-            x++;
+            String[] splited = listOfCurrency.get(i).split(", ");
+
+            if(splited.length == 4){
+                splited[2] = splited[2] + " " + splited[3];
+            }
+            nameOfCurrency.add(new Pair<>(splited[2], splited[1]));
         }
     }
 
@@ -57,8 +57,8 @@ public class Graph {
         return V;
     }
 
-    public void setV(int v) {
-        V = v;
+    public void setV(int V) {
+        this.V = V;
     }
 
     public int getE() {
