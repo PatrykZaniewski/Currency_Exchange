@@ -18,7 +18,7 @@ public class Main {
 
     public static void main(String[] args) {
         //TODO wczytywanie pliku jako argument
-        DataRead read = new DataRead("src/test.txt");
+        DataRead read = new DataRead("src/sciezka.txt");
         graph = read.readFile();
         if (graph == null) {
             System.out.println("Program zostal przerwany w czasie wczytywania danych.");
