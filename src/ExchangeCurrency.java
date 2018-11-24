@@ -23,7 +23,7 @@ public class ExchangeCurrency {
         dist[src] = (double) 1 / amount;
 
         for (int i = 1; i < V; i++) {
-            for (int j = 0; j < E; j++) {
+            //for (int j = 0; j < E; j++) {
                 int u = 0;
                 for (LinkedList<Pair<Integer, ChangeCost>> list : graph.getList()) {
                     for (Pair<Integer, ChangeCost> para : list) {
@@ -45,7 +45,12 @@ public class ExchangeCurrency {
                     }
                     u++;
                 }
-            }
+            //}
+        }
+
+        for(int i = 0; i < dist.length; i++)
+        {
+            System.out.println(i + " " + 1/dist[i]);
         }
 
         Stack<Integer> stack = new Stack<>();
@@ -56,6 +61,8 @@ public class ExchangeCurrency {
         while (prev[u] != u) {
             u = prev[u];
             if (stack.search(u) > 0) {
+                System.out.println(stack);
+
                 return -1;
             }
             stack.push(u);

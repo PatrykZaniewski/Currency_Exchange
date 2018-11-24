@@ -18,7 +18,7 @@ public class Main {
 
     public static void main(String[] args) {
         //TODO wczytywanie pliku jako argument
-        DataRead read = new DataRead("src/sciezka.txt");
+        DataRead read = new DataRead("src/arbsciezki.txt");
         graph = read.readFile();
         if (graph == null) {
             System.out.println("Program zostal przerwany w czasie wczytywania danych.");
@@ -28,7 +28,7 @@ public class Main {
 
             while (true) {
                 ExchangeCurrency exchange = new ExchangeCurrency(graph);
-                //FindArbitration arbitration = new FindArbitration(graf);
+                FindArbitration arbitration = new FindArbitration(graph);
                 Scanner odczyt = new Scanner(System.in);
                 String text = odczyt.nextLine();
                 String[] splited = text.split(" ");
@@ -44,7 +44,17 @@ public class Main {
                     } else {
                         try {
                             double stringToDouble = Double.parseDouble(splited[0]);
-                            //TODO arbitraz
+                            double wynik = arbitration.BellmanFord(0, stringToDouble);
+
+                            if(wynik > 0){
+                                DecimalFormat df = new DecimalFormat("###.##");
+                                System.out.println(df.format(wynik));
+                            }
+                            else
+                            {
+                                System.out.println("Nie znaleziono abitrazu z podana kwota");
+                            }
+
                         } catch (NumberFormatException e) {
                             System.out.println("Błąd 09: Podany argument arbitrazu zawiera znaki inne niż cyfry.");
                         }

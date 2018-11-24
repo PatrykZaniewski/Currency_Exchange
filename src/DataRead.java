@@ -42,6 +42,7 @@ public class DataRead {
             int hashCount = 0;
             int lineNumber = 1;
             ArrayList<String> listOfCurrency = new ArrayList<>();
+            int duplicateCount = 0;
             while ((text = br.readLine()) != null) {
                 text = text.trim();
                 if (text.length() > 0 && text.charAt(0) == '#') {
@@ -52,7 +53,6 @@ public class DataRead {
                 } else {
                     //wczytywanie walut
                     if (hashCount == 1) {
-                        int duplicateCount = 0;
                         text = checkData(text, true, lineNumber);
                         if (text != null && !text.equals("-1")) {
                             String[] splited = text.split(" ");
@@ -63,52 +63,35 @@ public class DataRead {
                             text = Arrays.toString(splited);
                             listOfCurrency.add(text);
                             //TODO poprawic duplikaty
-                            /*if (listOfCurrency.size() == 0) {
-                                listOfCurrency.add(text);
-                            } else {
-                                boolean duplicateChoosen = false;
-                                for (int i = 0; i < listOfCurrency.size(); i++) {
-                                    if (listOfCurrency.get(i).contains(splited[1])) {
-                                        System.out.println("Błąd 11: Wystąpił duplikat podczas wczytywania waluty w linii: " + lineNumber  + ". Wpisz \"E\", aby edytować linię, wpisując \"P\" pominiesz ją, natomiast \"W\" zakończy działanie programu.");
-                                        while (true) {
-                                            Scanner odczyt = new Scanner(System.in);
-                                            String problemSolve = odczyt.nextLine();
-                                            if (problemSolve.equals("W")) {
-                                                return null;
-                                            } else if (problemSolve.equals("E")) {
-                                                System.out.println("Wprowadź linię ponownie:");
-                                                while (true) {
-                                                    odczyt = new Scanner(System.in);
-                                                    String lineEdit;
-                                                    lineEdit = odczyt.nextLine();
-                                                    lineEdit = checkData(lineEdit, true, lineNumber);
-                                                    System.out.println("XD");
-                                                    String[] lineEditSplit;
-                                                    if (lineEdit != null) {
-                                                        lineEditSplit = lineEdit.split(" ");
-                                                        if (!listOfCurrency.get(i).contains(lineEditSplit[1])) {
-                                                            listOfCurrency.add(lineEdit);
-                                                            break;
-                                                        }
-                                                    }
-                                                }
-                                            } else if (problemSolve.equals("P")) {
-                                                duplicateChoosen = true;
-                                                duplicateCount++;
-                                                break;
-                                            }
-                                        }
-                                    }
-                                    if (duplicateChoosen)
-                                    {
+                            boolean isDuplicate = false;
+                            for (int i = 0; i < listOfCurrency.size() - 1; i++) {
+                                if (listOfCurrency.get(i).contains(splited[1])) {
+                                    isDuplicate = true;
+                                    break;
+                                }
+                            }
+                            if (isDuplicate) {
+                                System.out.println("Błąd 11: Wystąpił duplikat podczas wczytywania waluty w linii: " + lineNumber + ". Wpisz \"E\", aby edytować linię, wpisując \"P\" pominiesz ją, natomiast \"W\" zakończy działanie programu.");
+                                while (true) {
+                                    Scanner odczyt = new Scanner(System.in);
+                                    String problemSolve = odczyt.nextLine();
+                                    if (problemSolve.equals("W")) {
+                                        return null;
+                                    } else if (problemSolve.equals("E")) {
+                                        System.out.println("Wprowadź linię ponownie:");
+                                        odczyt = new Scanner(System.in);
+                                        String lineEdit = odczyt.nextLine();
+                                        lineEdit = checkData(lineEdit, true, lineNumber - duplicateCount);
+                                        listOfCurrency.remove(listOfCurrency.size() - 1);
+                                        listOfCurrency.add(lineEdit);
+                                        break;
+                                    } else if (problemSolve.equals("P")) {
+                                        listOfCurrency.remove(listOfCurrency.size() - 1);
+                                        duplicateCount++;
                                         break;
                                     }
                                 }
-                                if(!duplicateChoosen)
-                                {
-                                    listOfCurrency.add(text);
-                                }
-                            }*/
+                            }
                         } else {
                             return null;
                         }
