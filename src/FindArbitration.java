@@ -57,21 +57,20 @@ public class FindArbitration {
                         test.clear();
                         int x = u;
                         int moves = 0;
-                        while(x != para.getKey() && moves <= E)
-                        {
+                        while (x != para.getKey() && moves <= E) {
                             test.add(x);
                             x = prev[x];
                             moves++;
                         }
                         test.add(para.getKey());
-                        if(moves <= E) {
+                        if (moves <= E) {
                             str = 1;
                             break;
                         }
                     }
                 }
             }
-            if(str == 1)break;
+            if (str == 1) break;
             u++;
         }
 

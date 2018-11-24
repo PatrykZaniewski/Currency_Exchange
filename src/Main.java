@@ -46,12 +46,10 @@ public class Main {
                             double stringToDouble = Double.parseDouble(splited[0]);
                             double wynik = arbitration.BellmanFord(0, stringToDouble);
 
-                            if(wynik > 0){
+                            if (wynik > 0) {
                                 DecimalFormat df = new DecimalFormat("###.##");
                                 System.out.println(df.format(wynik));
-                            }
-                            else
-                            {
+                            } else {
                                 System.out.println("Nie znaleziono abitrazu z podana kwota");
                             }
 
