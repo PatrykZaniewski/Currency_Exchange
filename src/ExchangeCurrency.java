@@ -48,9 +48,9 @@ public class ExchangeCurrency {
             //}
         }
 
-        for (int i = 0; i < dist.length; i++) {
+       /* for (int i = 0; i < dist.length; i++) {
             System.out.println(i + " " + 1 / dist[i]);
-        }
+        }*/
 
         Stack<Integer> stack = new Stack<>();
         stack.push(dst);

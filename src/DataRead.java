@@ -62,7 +62,7 @@ public class DataRead {
                             }
                             text = Arrays.toString(splited);
                             listOfCurrency.add(text);
-                            //TODO poprawic duplikaty
+
                             boolean isDuplicate = false;
                             for (int i = 0; i < listOfCurrency.size() - 1; i++) {
                                 if (listOfCurrency.get(i).contains(splited[1])) {
@@ -83,6 +83,7 @@ public class DataRead {
                                         String lineEdit = odczyt.nextLine();
                                         lineEdit = checkData(lineEdit, true, lineNumber - duplicateCount);
                                         listOfCurrency.remove(listOfCurrency.size() - 1);
+                                        lineEdit = lineEdit.replace(" ", ", ");
                                         listOfCurrency.add(lineEdit);
                                         break;
                                     } else if (problemSolve.equals("P")) {

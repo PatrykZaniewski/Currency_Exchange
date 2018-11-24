@@ -14,7 +14,7 @@ public class Graph {
         list = new ArrayList<>();
         for (int i = 0; i < V; i++) {
             list.add(new LinkedList<>());
-            String[] splited = listOfCurrency.get(i).split(", ");
+            String[] splited = listOfCurrency.get(i).split("[, ][ ]");
 
             if (splited.length == 4) {
                 splited[2] = splited[2] + " " + splited[3];
