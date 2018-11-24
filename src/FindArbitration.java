@@ -40,7 +40,6 @@ public class FindArbitration {
                         dist[v] = afterExchange;
                         prev[v] = u;
                     }
-
                 }
                 u++;
             }
@@ -49,14 +48,14 @@ public class FindArbitration {
         int u = 0;
         Stack<Integer> test = new Stack<>();
         int str = 0;
-
+        int moves = 0;
         for (LinkedList<Pair<Integer, ChangeCost>> list : graph.getList()) {
             for (Pair<Integer, ChangeCost> para : list) {
                 if (dist[u] != Integer.MAX_VALUE) {
                     if (hasCycle(u, para.getKey(), para.getValue())) {
                         test.clear();
                         int x = u;
-                        int moves = 0;
+                        moves = 0;
                         while (x != para.getKey() && moves <= E) {
                             test.add(x);
                             x = prev[x];
@@ -73,7 +72,10 @@ public class FindArbitration {
             if (str == 1) break;
             u++;
         }
-
+        if(moves > E)
+        {
+            return 0;
+        }
         double wynik = amount;
         while (test.size() > 0) {
             System.out.print(graph.getCurrencyShortName(u) + " -> ");

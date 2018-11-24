@@ -44,13 +44,18 @@ public class Main {
                     } else {
                         try {
                             double stringToDouble = Double.parseDouble(splited[0]);
-                            double wynik = arbitration.BellmanFord(0, stringToDouble);
-
-                            if (wynik > 0) {
-                                DecimalFormat df = new DecimalFormat("###.##");
-                                System.out.println(df.format(wynik));
-                            } else {
-                                System.out.println("Nie znaleziono abitrazu z podana kwota");
+                            //TODO tutaj, petla dla 0 ... n-
+                            double wynik = 0;
+                            for (int i = 0; i < graph.getV(); i++) {
+                                wynik = arbitration.BellmanFord(i, stringToDouble);
+                                if (wynik > 0) {
+                                    DecimalFormat df = new DecimalFormat("###.##");
+                                    System.out.println(df.format(wynik));
+                                    break;
+                                }
+                            }
+                            if (wynik <= 0) {
+                                System.out.println("Nie znaleziono abitrazu z podana kwota lub arbitraż nie jest mozliwy.");
                             }
 
                         } catch (NumberFormatException e) {
