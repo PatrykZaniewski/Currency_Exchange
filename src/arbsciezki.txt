@@ -3,11 +3,10 @@
 1 GBP funt brytyjski
 2 USD dolar amerykański
 3 BSO bieda somalijska
-4 LEK leki albanskie
-5 TES testowy
+4 TES test
 # Kursy walut (id | symbol (waluta wejściowa) | symbol (waluta wyjściowa) | kurs | typ opłaty | opłata)
 0 EUR GBP 0,8889 PROC 0,0001
-2 BSO LEK 0.99 STAŁA 0.55
-3 LEK GBP 11 STAŁA 0.01
-4 USD TES 11 STAŁA 0.01
-5 TES USD 2 STAŁA 0.02
+2 GBP USD 0.99 STAŁA 0.55
+3 GBP BSO 11 STAŁA 0.01
+4 BSO GBP 11 STAŁA 0.01
+5 USD TES 1 STAŁA 0.01

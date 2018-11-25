@@ -5,17 +5,16 @@ import java.util.LinkedList;
 
 public class Graph {
     private ArrayList<Pair<String, String>> nameOfCurrency = new ArrayList<>();
-    private ArrayList<LinkedList<Pair<Integer, ChangeCost>>> list;
-    private int V = 0;
-    private int E = 0;
+    private ArrayList<LinkedList<Pair<Integer, ChangeCost>>> listOfNeighbor;
+    private int numberOfVertexes;
+    private int numberOfEdges = 0;
 
     public Graph(ArrayList<String> listOfCurrency) {
-        V = listOfCurrency.size();
-        list = new ArrayList<>();
-        for (int i = 0; i < V; i++) {
-            list.add(new LinkedList<>());
-            String[] splited = listOfCurrency.get(i).split("[, ][ ]");
-
+        numberOfVertexes = listOfCurrency.size();
+        listOfNeighbor = new ArrayList<>();
+        for (int i = 0; i < numberOfVertexes; i++) {
+            listOfNeighbor.add(new LinkedList<>());
+            String splited[] = listOfCurrency.get(i).split("[, ][ ]");
             if (splited.length == 4) {
                 splited[2] = splited[2] + " " + splited[3];
             }
@@ -25,8 +24,8 @@ public class Graph {
 
     void addEdge(int src, int dst, double multipler, double cost, boolean isPercent) {
         ChangeCost costs = new ChangeCost(multipler, cost, isPercent);
-        list.get(src).add(new Pair<>(dst, costs));
-        E++;
+        listOfNeighbor.get(src).add(new Pair<>(dst, costs));
+        numberOfEdges++;
     }
 
     int getCurrencyID(String shortName) {
@@ -44,15 +43,15 @@ public class Graph {
         return nameOfCurrency.get(id).getValue();
     }
 
-    ArrayList<LinkedList<Pair<Integer, ChangeCost>>> getList() {
-        return list;
+    ArrayList<LinkedList<Pair<Integer, ChangeCost>>> getListOfNeighbor() {
+        return listOfNeighbor;
     }
 
-    int getV() {
-        return V;
+    int getNumberOfVertexes() {
+        return numberOfVertexes;
     }
 
-    int getE() {
-        return E;
+    int getNumberOfEdges() {
+        return numberOfEdges;
     }
 }
