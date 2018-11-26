@@ -6,7 +6,7 @@ import java.util.Stack;
 public class FindArbitration {
     private double dist[];
     private Graph graph;
-
+//TODO 0.01? Wypisywanie stosu przy braku?
     FindArbitration(Graph graph) {
         this.graph = graph;
     }

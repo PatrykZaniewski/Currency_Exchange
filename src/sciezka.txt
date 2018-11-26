@@ -1,6 +1,6 @@
 # Waluty (id | symbol | pełna nazwa)
 0 EUR euro
-1 EUR funt brytyjski
+1 GBP funt brytyjski
 2 USD dolar amerykański
 # Kursy walut (id | symbol (waluta wejściowa) | symbol (waluta wyjściowa) | kurs | typ opłaty | opłata)
 0 EUR GBP 0,8889 PROC 0,0001

@@ -43,8 +43,9 @@ public class DataRead {
             ArrayList<String> listOfCurrency = new ArrayList<>();
             int duplicateCount = 0;
             while ((lineRead = br.readLine()) != null) {
+                System.out.println(lineRead);
                 lineRead = lineRead.trim();
-                if (lineRead.length() > 0 && lineRead.charAt(0) == '#') {
+                if (lineRead.length() > 0 && (lineRead.contains("#"))) {
                     hashCount++;
                     if (hashCount == 2) {
                         graph = new Graph(listOfCurrency);
@@ -140,10 +141,17 @@ public class DataRead {
             }
             if (splitedLine.length > 4) {
                 if (splitedLine[0].matches("[0-9]+") && isAlpha(splitedLine[1]) && isAlpha(splitedLine[2])) {
-                    System.out.println("Zostaną wczytanie pierwsze 3 argumenty. Dodatkowe zostaną pominięte.");
+                    if(!isAlpha(splitedLine[3]))
+                    {
+                        System.out.println("W linii " + lineNumber + " znajduja sie wiecej niz 3 argumenty. Zostana wczytane tylko pierwsze 3.");
+                    }
                     StringBuilder sb = new StringBuilder();
                     for (int i = 0; i < 3; i++) {
                         sb.append(splitedLine[i]);
+                    }
+                    if(isAlpha(splitedLine[3]))
+                    {
+                        sb.append(splitedLine[3]);
                     }
                     lineRead = sb.toString();
                     return lineRead;
@@ -167,7 +175,7 @@ public class DataRead {
         } else {
             if (splitedLine.length == 6) {
                 lineRead = lineRead.replace(",", ".");
-                if (splitedLine[0].matches("[0-9]+") && isAlpha(splitedLine[1]) && isAlpha(splitedLine[2]) && isDouble(splitedLine[3]) && isAlpha(splitedLine[4]) && isDouble(splitedLine[5])) {
+                if (splitedLine[0].matches("[0-9]+") && isAlpha(splitedLine[1]) && isAlpha(splitedLine[2]) && isDouble(splitedLine[3]) && (isAlpha(splitedLine[4]) || (splitedLine[4].contains("STA") && splitedLine[4].charAt(3) == 9532)) && isDouble(splitedLine[5])) {
                     return lineRead;
                 }
             }
