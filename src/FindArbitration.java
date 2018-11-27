@@ -6,7 +6,6 @@ import java.util.Stack;
 public class FindArbitration {
     private double dist[];
     private Graph graph;
-//TODO 0.01? Wypisywanie stosu przy braku?
     FindArbitration(Graph graph) {
         this.graph = graph;
     }
@@ -73,10 +72,12 @@ public class FindArbitration {
             if (str == 1) break;
             u++;
         }
-        if(moves > E)
+
+        if(moves > E || dist[src] >= 1 / amount || dist[src] < 0)
         {
             return 0;
         }
+
         double result = amount;
         while (stack.size() > 0) {
             System.out.print(graph.getCurrencyShortName(u) + " -> ");
@@ -97,10 +98,11 @@ public class FindArbitration {
             }
             u = stack.pop();
         }
+        System.out.println(graph.getCurrencyShortName(src) + " ");
         return result;
     }
 
-    boolean hasCycle(int src, int dst, ChangeCost changeCost) {
+    private boolean hasCycle(int src, int dst, ChangeCost changeCost) {
         double cost;
         if (changeCost.getIsPercent()) {
             cost = 1 / (dist[src] * changeCost.getMultipler()) * changeCost.getCost() / 100;
