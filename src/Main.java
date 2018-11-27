@@ -51,24 +51,30 @@ public class Main {
                             try {
                                 double stringToDouble = Double.parseDouble(splitedConsolRead[0]);
                                 double result = 0;
-                                for (int i = 0; i < graph.getNumberOfVertexes(); i++) {
-                                    result = arbitration.BellmanFord(i, stringToDouble);
-                                    if (result > 0) {
-                                        DecimalFormat df = new DecimalFormat("###.##");
-                                        System.out.println("Wynik koncowy arbitrazu: " + df.format(result));
-                                        break;
+                                if(stringToDouble >= 0) {
+                                    for (int i = 0; i < graph.getNumberOfVertexes(); i++) {
+                                        result = arbitration.arbitration(i, stringToDouble);
+                                        if (result > 0) {
+                                            DecimalFormat df = new DecimalFormat("###.##");
+                                            System.out.println("Wynik koncowy arbitrazu: " + df.format(result));
+                                            break;
+                                        }
+                                    }
+                                    if (result <= 0) {
+                                        System.out.println("Nie znaleziono abitrazu z podana kwota lub arbitraz nie jest mozliwy.");
                                     }
                                 }
-                                if (result <= 0) {
-                                    System.out.println("Nie znaleziono abitrazu z podana kwota lub arbitraz nie jest mozliwy.");
+                                else
+                                {
+                                    System.out.println("Blad 09: Kwota arbitrazu mniejsza od 0.");
                                 }
 
                             } catch (NumberFormatException e) {
-                                System.out.println("Blad 07: Podany argument arbitrazu zawiera znaki inne niż cyfry.");
+                                System.out.println("Blad 10: Podany argument arbitrazu zawiera znaki inne niż cyfry.");
                             }
                         }
                     } else if (splitedConsolRead.length == 2) {
-                        System.out.println("Blad 08: Brak jednego z argumentow potrzebnych do wyszukania korzystnej wymiany waluty.");
+                        System.out.println("Blad 11: Brak jednego z argumentow potrzebnych do wyszukania korzystnej wymiany waluty.");
                     } else if (splitedConsolRead.length > 2) {
                         boolean firstArgErr = false;
                         boolean secondArgErr = false;
@@ -78,24 +84,24 @@ public class Main {
                         }
                         if (!isAlpha(splitedConsolRead[0])) {
                             firstArgErr = true;
-                            System.out.println("Blad 09: Pierwszy z argumentow zawiera znaki inne niz litery.");
+                            System.out.println("Blad 12: Pierwszy z argumentow zawiera znaki inne niz litery.");
                         }
                         if (splitedConsolRead[0].length() != 3) {
                             firstArgErr = true;
-                            System.out.println("Blad 11: Argument waluty wejsciowej jest dluzszy niz 3 znaki.");
+                            System.out.println("Blad 13: Argument waluty wejsciowej jest dluzszy niz 3 znaki.");
                         }
                         if (!isAlpha(splitedConsolRead[2])) {
                             secondArgErr = true;
-                            System.out.println("Blad 10: Trzeci z argumentow zawiera znaki inne niz litery.");
+                            System.out.println("Blad 14: Trzeci z argumentow zawiera znaki inne niz litery.");
                         }
                         if (splitedConsolRead[2].length() != 3) {
                             secondArgErr = true;
-                            System.out.println("Blad 12: Argument waluty wyjsciowej jest dluzszy niz 3 znaki.");
+                            System.out.println("Blad 15: Argument waluty wyjsciowej jest dluzszy niz 3 znaki.");
                         }
                         try {
                             amount = Double.parseDouble(splitedConsolRead[1]);
                             if (amount < 0) {
-                                System.out.println("Blad 13: Kwota wymiany mniejsza od 0.");
+                                System.out.println("Blad 16: Kwota wymiany mniejsza od 0.");
                             } else {
                                 if (!firstArgErr && !secondArgErr) {
                                     boolean firstArgNotExist = false;
@@ -104,11 +110,11 @@ public class Main {
                                     int dst = graph.getCurrencyID(splitedConsolRead[2]);
                                     if (src == -1) {
                                         firstArgNotExist = true;
-                                        System.out.println("Blad 15: Waluta wejsciowa nie istnieje w pliku.");
+                                        System.out.println("Blad 17: Waluta wejsciowa nie istnieje w pliku.");
                                     }
                                     if (dst == -1) {
                                         secondArgNotExist = true;
-                                        System.out.println("Blad 16: Waluta wyjsciowa nie istnieje w pliku.");
+                                        System.out.println("Blad 18: Waluta wyjsciowa nie istnieje w pliku.");
                                     }
                                     if (!firstArgNotExist && !secondArgNotExist) {
                                         double result = exchange.exchange(src, amount, dst);
@@ -124,7 +130,7 @@ public class Main {
                                 }
                             }
                         } catch (NumberFormatException e) {
-                            System.out.println("Blad 14: Drugi z argumentow zawiera znaki inne niz cyfry.");
+                            System.out.println("Blad 19: Drugi z argumentow zawiera znaki inne niz cyfry.");
                         }
                     }
                 }

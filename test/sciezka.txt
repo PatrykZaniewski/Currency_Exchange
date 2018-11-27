@@ -1,0 +1,22 @@
+# Waluty (id | symbol | pełna nazwa)
+0 EUR euro
+1 GBP funt brytyjski
+2 USD dolar amerykański
+3 CHF frank szwajcarski
+4 PLN zloty
+5 CAD dolar kanadyjski
+6 AUD dolar australijski
+7 JPY jeny japonskie
+8 KON korona novigradzka
+9 MAK marka kovirska
+# Kursy walut (id | symbol (waluta wejściowa) | symbol (waluta wyjściowa) | kurs | typ opłaty | opłata)
+0 EUR GBP 0,8889 PROC 0,0001
+1 GBP USD 1,2795 PROC 0
+2 EUR USD 1,1370 STAŁA 0.025
+3 USD CHF 0,9965 STAŁA 0.05
+4 GBP CHF 2 PROC 0,05
+5 AUD GBP 0.7657 PROC 0.5
+6 AUD CHF 0.7217 PROC 0.03
+7 EUR AUD 1.56 PROC 0.00001
+8 CHF JPY 0.9 PROC 0.04
+9 EUR JPY 0.5 PROC 0.02

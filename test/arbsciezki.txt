@@ -2,11 +2,12 @@
 0 EUR euro
 1 GBP funt brytyjski
 2 USD dolar amerykański
-3 BSO bieda somalijska
-4 TES test
+3 SOS szyling somalijski
+4 CHF frank szwajcarski
 # Kursy walut (id | symbol (waluta wejściowa) | symbol (waluta wyjściowa) | kurs | typ opłaty | opłata)
 0 EUR GBP 0,8889 PROC 0,0001
 2 GBP USD 0.99 STAŁA 0.55
-3 GBP BSO 11 STAŁA 0.01
-4 BSO GBP 11 STAŁA 0.01
-5 USD TES 1 STAŁA 0.01
+3 GBP SOS 11 STAŁA 0.01
+4 SOS GBP 11 STAŁA 0.01
+5 USD CHF 1 STAŁA 0.01
+6 CHF USD 60 STAŁA 0.01

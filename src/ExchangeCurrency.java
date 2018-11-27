@@ -47,18 +47,26 @@ public class ExchangeCurrency {
             }
         }
 
-        for (int i = 0; i < dist.length; i++) {
+        /*for (int i = 0; i < dist.length; i++) {
             System.out.println(i + " " + prevVertex[i] + " " + 1 / dist[i]);
-        }
+        }*/
 
         Stack<Integer> stack = new Stack<>();
         stack.push(dst);
 
         int u = dst;
-        //TODO spróbować osiągnąć jednokrotne przejście po arbitrażu
         while (prevVertex[u] != u) {
             u = prevVertex[u];
             if (stack.search(u) > 0) {
+                /*for(int i = stack.size() - 1; i >= 0; i--)
+                {
+                    System.out.print(graph.getCurrencyShortName(stack.get(i)));
+                    if(i > 0){
+                        System.out.print(" -> ");
+                    }
+                }
+                System.out.println();
+                exchange(src, amount, stack.get(stack.size() - 2));*/
                 return -1;
             }
             stack.push(u);
