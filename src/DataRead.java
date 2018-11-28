@@ -74,7 +74,7 @@ public class DataRead {
                                     if (problemSolve.equals("W")) {
                                         return null;
                                     } else if (problemSolve.equals("E")) {
-                                        System.out.println("Wprowadz linie ponownie:");
+                                        System.out.println("Wprowadz linie ponownie: ");
                                         scannerError = new Scanner(System.in);
                                         String lineEdit = scannerError.nextLine();
                                         lineEdit = checkData(lineEdit, true, lineNumber - duplicateCount);
@@ -209,7 +209,7 @@ public class DataRead {
                 } else if (problemSolve.equals("P")) {
                     return null;
                 } else if (problemSolve.equals("E")) {
-                    System.out.println("Wprowadz linie ponownie:");
+                    System.out.println("Wprowadz linie ponownie: ");
                     scannerError = new Scanner(System.in);
                     problemSolve = scannerError.nextLine();
                     return checkData(problemSolve, false, lineNumber);
