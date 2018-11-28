@@ -78,14 +78,7 @@ W przypadku wyboru wyznaczenie arbitrażu walutowego użytkownik podaje tylko il
 Jeśli jednak użytkownik wybierze opcję wyznaczenia arbitrażu walutowego to podaje wtedy 3 argumenty: waluta wejściowa, ilość waluty, waluta wyjściowa. W dalszej kolejności wykonywana jest podobnie jak w algorytmie wyszukiwania arbitrażu, relaksacja wierzchołków. Po tej operacji następuje odczytanie ścieżki wymiany walut i wyliczenie końcowego rezultatu wymiany. Oprócz standardowego wyniku jakim jest ścieżka wymiany walut oraz rezultat tej wymiany, użytkownik może spotać się również z komunikatami: "Nie mozna wymienic walut gdyz nie istnieje miedzy nimi bezposrednie albo posrednie polaczenie." lub "Na sciezce wymiany istnieje powyzszy arbitraz wymiany walut co prowadzi do osiagniecia nieskonczonego wyniku.".
 
 \section{Zmiany w stosunku do specyfikacji implementacyjnej}
-Pomimo szeregu zmian i ulepszeń wprowadzonych w programie, liczba klas pozostała niezmieniona i wynosi 6. Są to klasy: Main, DataRead, Graph, ChangeCost, FindArbitration oraz ExchangeCurrency. Poniżej przedstawiony jest nowy diagram klas \emph{Rysunek 1}  oraz opisy zmian w klasach:
-
-\begin{figure}[h!]
-\centerline{\includegraphics[scale=0.37]{diagram}}
-\caption{diagram klas}
-\label{fig:diagram2}
-\end{figure}
-
+Pomimo szeregu zmian i ulepszeń wprowadzonych w programie, liczba klas pozostała niezmieniona i wynosi 6. Są to klasy: Main, DataRead, Graph, ChangeCost, FindArbitration oraz ExchangeCurrency. Poniżej przedstawione jest nowy diagram klas oraz zmiany wprowadzone w każdej z nich.
 \begin{enumerate}
 \item \textbf{Main}
 \newline\newline
@@ -112,7 +105,6 @@ Pomimo szeregu zmian i ulepszeń wprowadzonych w programie, liczba klas pozosta�
         boolean currencyNameRead, int lineNumber)\end{verbatim}
         metoda oprócz sprawdzenia poprawności danych zajmuje się teraz obsługą błędów związanych z odczytywaniem pliku. Zmiana ta nastąpiła w celu umożliwienia obsługi błędów bez potrzeby wywoływania kolejnych metod.
         \end{itemize}
-
     Usunięte metody:
     \begin{itemize}
         \item \begin{verbatim}private String validationData (String lineRead)\end{verbatim}
