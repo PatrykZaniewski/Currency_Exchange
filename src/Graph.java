@@ -1,5 +1,4 @@
 import javafx.util.Pair;
-
 import java.util.ArrayList;
 import java.util.LinkedList;
 
@@ -14,12 +13,28 @@ public class Graph {
         listOfNeighbor = new ArrayList<>();
         for (int i = 0; i < numberOfVertexes; i++) {
             listOfNeighbor.add(new LinkedList<>());
-            String splited[] = listOfCurrency.get(i).split("[, ][ ]");
-            if (splited.length == 4) {
-                splited[2] = splited[2] + " " + splited[3];
+            String splittedCurrency[] = listOfCurrency.get(i).split("[, ][ ]");
+            if (splittedCurrency.length == 4) {
+                splittedCurrency[2] = splittedCurrency[2] + " " + splittedCurrency[3];
             }
-            nameOfCurrency.add(new Pair<>(splited[2], splited[1]));
+            nameOfCurrency.add(new Pair<>(splittedCurrency[2], splittedCurrency[1]));
         }
+    }
+
+    String getCurrencyShortName(int id) {
+        return nameOfCurrency.get(id).getValue();
+    }
+
+    ArrayList<LinkedList<Pair<Integer, ChangeCost>>> getListOfNeighbor() {
+        return listOfNeighbor;
+    }
+
+    int getNumberOfVertexes() {
+        return numberOfVertexes;
+    }
+
+    int getNumberOfEdges() {
+        return numberOfEdges;
     }
 
     void addEdge(int src, int dst, double multipler, double cost, boolean isPercent) {
@@ -37,21 +52,5 @@ public class Graph {
             i++;
         }
         return -1;
-    }
-
-    String getCurrencyShortName(int id) {
-        return nameOfCurrency.get(id).getValue();
-    }
-
-    ArrayList<LinkedList<Pair<Integer, ChangeCost>>> getListOfNeighbor() {
-        return listOfNeighbor;
-    }
-
-    int getNumberOfVertexes() {
-        return numberOfVertexes;
-    }
-
-    int getNumberOfEdges() {
-        return numberOfEdges;
     }
 }

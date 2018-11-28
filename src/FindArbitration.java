@@ -33,7 +33,6 @@ public class FindArbitration {
             prevVertex[i] = i;
             dist[i] = Integer.MAX_VALUE;
         }
-
         dist[src] = (double) 1 / amount;
 
         for (int i = 1; i < V; i++) {
@@ -86,8 +85,7 @@ public class FindArbitration {
             u++;
         }
 
-        if(moves > E || dist[src] >= 1 / amount || stackOfCurrency.empty())
-        {
+        if (moves > E || dist[src] >= 1 / amount || stackOfCurrency.empty()) {
             return 0;
         }
 
@@ -113,14 +111,10 @@ public class FindArbitration {
             }
             u = stackOfCurrency.pop();
         }
-        if(result < amount)
-        {
+        if (result < amount) {
             return 0;
-        }
-        else
-        {
-            while(secondStackOfCurrency.size() > 0)
-            {
+        } else {
+            while (secondStackOfCurrency.size() > 0) {
                 System.out.print(graph.getCurrencyShortName(u2) + " -> ");
                 u2 = secondStackOfCurrency.pop();
             }

@@ -1,0 +1,24 @@
+# Waluty (id | symbol | pełna nazwa)
+0 EUR euro
+1 GBP funt brytyjski
+2 USD dolar amerykański
+3 CHF frank szwajcarski
+4 PLN zloty
+5 CAD dolar kanadyjski
+6 AUD dolar australijski
+7 JPY jeny japonskie
+8 KON korona novigradzka
+9 MAK marka kovirska
+10 TES test
+# Kursy walut (id | symbol (waluta wejściowa) | symbol (waluta wyjściowa) | kurs | typ opłaty | opłata)
+0 EUR GBP 0,8889 PROC 0,0001
+1 GBP USD 1,2795 PROC 0
+2 USD GBP 1,1370 STAŁA 0.025
+3 GBP CHF 0,9965 STAŁA 0.05
+4 CHF PLN 0.5 STAŁA 0.2
+5 PLN CAD 2.3 STAŁA 0.01
+6 CAD AUD 4 STAŁA 0.03
+8 PLN JPY 1.2 STAŁA 0.05
+9 EUR JPY 11 PROC 0.01
+10 JPY KON 11 STAŁA 0.01
+11 AUD USD 11 STAŁA 0.03

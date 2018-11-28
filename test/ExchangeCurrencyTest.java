@@ -6,7 +6,7 @@ public class ExchangeCurrencyTest {
     @Test
     public void exchangeTest3CurrPath() {
         Graph graph;
-        DataRead read = new DataRead("test/sciezka.txt");
+        DataRead read = new DataRead("test/way1.txt");
         graph = read.readFile();
         ExchangeCurrency exchange = new ExchangeCurrency(graph);
         double result;
@@ -19,7 +19,7 @@ public class ExchangeCurrencyTest {
     @Test
     public void exchangeTest2CurrPath() {
         Graph graph;
-        DataRead read = new DataRead("test/sciezka.txt");
+        DataRead read = new DataRead("test/way1.txt");
         graph = read.readFile();
         ExchangeCurrency exchange = new ExchangeCurrency(graph);
         double result;
@@ -32,7 +32,7 @@ public class ExchangeCurrencyTest {
     @Test
     public void exchangeTest5CurrPath() {
         Graph graph;
-        DataRead read = new DataRead("test/sciezka.txt");
+        DataRead read = new DataRead("test/way1.txt");
         graph = read.readFile();
         ExchangeCurrency exchange = new ExchangeCurrency(graph);
         double result;
@@ -45,7 +45,7 @@ public class ExchangeCurrencyTest {
     @Test
     public void exchangeTestCurrenctConnectionNotExists() {
         Graph graph;
-        DataRead read = new DataRead("test/sciezka.txt");
+        DataRead read = new DataRead("test/way1.txt");
         graph = read.readFile();
         ExchangeCurrency exchange = new ExchangeCurrency(graph);
         double result;
@@ -58,7 +58,7 @@ public class ExchangeCurrencyTest {
     @Test
     public void exchangeTestZeroAmount() {
         Graph graph;
-        DataRead read = new DataRead("test/sciezka.txt");
+        DataRead read = new DataRead("test/way1.txt");
         graph = read.readFile();
         ExchangeCurrency exchange = new ExchangeCurrency(graph);
         double result;

@@ -1,5 +1,4 @@
 class ChangeCost {
-
     private double multipler;
     private double cost;
     private boolean isPercent;

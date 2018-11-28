@@ -38,8 +38,8 @@ public class DataRead {
             String lineRead;
             int hashCount = 0;
             int lineNumber = 1;
-            ArrayList<String> listOfCurrency = new ArrayList<>();
             int duplicateCount = 0;
+            ArrayList<String> listOfCurrency = new ArrayList<>();
             while ((lineRead = br.readLine()) != null) {
                 lineRead = lineRead.trim();
                 if (lineRead.length() > 0 && (lineRead.contains("#"))) {
@@ -51,17 +51,17 @@ public class DataRead {
                     if (hashCount == 1) {
                         lineRead = checkData(lineRead, true, lineNumber);
                         if (lineRead != null && !lineRead.equals("-1")) {
-                            String[] splitedLine = lineRead.split(" ");
-                            if (Integer.parseInt(splitedLine[0]) != lineNumber - 2 - duplicateCount) {
-                                System.out.println("Ostrzezenie 02: Nieprawidłowe ID waluty w linii " + lineNumber + ", ID zostało ustawione na wartość: " + (lineNumber - 2 - duplicateCount));
-                                splitedLine[0] = String.valueOf(lineNumber - 2 - duplicateCount);
+                            String splittedLine[] = lineRead.split(" ");
+                            if (Integer.parseInt(splittedLine[0]) != lineNumber - 2 - duplicateCount) {
+                                System.out.println("Ostrzezenie 02: Nieprawidłowe ID waluty w linii " + lineNumber + ", ID zostało ustawione na wartość: " + (lineNumber - 2 - duplicateCount) + ".");
+                                splittedLine[0] = String.valueOf(lineNumber - 2 - duplicateCount);
                             }
-                            lineRead = Arrays.toString(splitedLine);
+                            lineRead = Arrays.toString(splittedLine);
                             listOfCurrency.add(lineRead);
 
                             boolean isDuplicate = false;
                             for (int i = 0; i < listOfCurrency.size() - 1; i++) {
-                                if (listOfCurrency.get(i).contains(splitedLine[1])) {
+                                if (listOfCurrency.get(i).contains(splittedLine[1])) {
                                     isDuplicate = true;
                                     break;
                                 }
@@ -98,13 +98,13 @@ public class DataRead {
                     if (hashCount == 2) {
                         lineRead = checkData(lineRead, false, lineNumber);
                         if (lineRead != null && !lineRead.equals("-1")) {
-                            String[] splited = lineRead.split(" ");
-                            int src = graph.getCurrencyID(splited[1]);
-                            int dst = graph.getCurrencyID(splited[2]);
-                            double multipler = Double.parseDouble(splited[3]);
-                            double cost = Double.parseDouble(splited[5]);
+                            String splittedLineRead[] = lineRead.split(" ");
+                            int src = graph.getCurrencyID(splittedLineRead[1]);
+                            int dst = graph.getCurrencyID(splittedLineRead[2]);
+                            double multipler = Double.parseDouble(splittedLineRead[3]);
+                            double cost = Double.parseDouble(splittedLineRead[5]);
                             boolean isPercent = true;
-                            if (!splited[4].equals("PROC")) {
+                            if (!splittedLineRead[4].equals("PROC")) {
                                 isPercent = false;
                             }
                             graph.addEdge(src, dst, multipler, cost, isPercent);
@@ -127,31 +127,29 @@ public class DataRead {
     }
 
     private String checkData(String lineRead, boolean currencyNameRead, int lineNumber) {
-        String[] splitedLine = lineRead.split(" ");
+        String[] splittedLine = lineRead.split(" ");
         if (currencyNameRead) {
-            if (splitedLine.length == 3) {
-                if (splitedLine[0].matches("[0-9]+") && isAlpha(splitedLine[1]) && isAlpha(splitedLine[2]) && splitedLine[1].length() == 3) {
+            if (splittedLine.length == 3) {
+                if (splittedLine[0].matches("[0-9]+") && isAlpha(splittedLine[1]) && isAlpha(splittedLine[2]) && splittedLine[1].length() == 3) {
                     return lineRead;
                 }
             }
-            if (splitedLine.length == 4) {
-                if (splitedLine[0].matches("[0-9]+") && isAlpha(splitedLine[1]) && isAlpha(splitedLine[2]) && isAlpha(splitedLine[3]) && splitedLine[1].length() == 3) {
+            if (splittedLine.length == 4) {
+                if (splittedLine[0].matches("[0-9]+") && isAlpha(splittedLine[1]) && isAlpha(splittedLine[2]) && isAlpha(splittedLine[3]) && splittedLine[1].length() == 3) {
                     return lineRead;
                 }
             }
-            if (splitedLine.length > 4) {
-                if (splitedLine[0].matches("[0-9]+") && isAlpha(splitedLine[1]) && isAlpha(splitedLine[2]) && splitedLine[1].length() == 3) {
-                    if(!isAlpha(splitedLine[3]))
-                    {
+            if (splittedLine.length > 4) {
+                if (splittedLine[0].matches("[0-9]+") && isAlpha(splittedLine[1]) && isAlpha(splittedLine[2]) && splittedLine[1].length() == 3) {
+                    if (!isAlpha(splittedLine[3])) {
                         System.out.println("Ostrzezenie 03: W linii " + lineNumber + " znajduja sie wiecej niz 3 argumenty. Zostana wczytane tylko 3 pierwsze.");
                     }
                     StringBuilder sb = new StringBuilder();
                     for (int i = 0; i < 3; i++) {
-                        sb.append(splitedLine[i]);
+                        sb.append(splittedLine[i]);
                     }
-                    if(isAlpha(splitedLine[3]))
-                    {
-                        sb.append(splitedLine[3]);
+                    if (isAlpha(splittedLine[3])) {
+                        sb.append(splittedLine[3]);
                     }
                     lineRead = sb.toString();
                     return lineRead;
@@ -159,7 +157,7 @@ public class DataRead {
             }
             System.out.println("Blad 04: Blad przy odczytywaniu pliku w linii " + lineNumber + ". Wpisz \"E\", aby edytowac linie, namtomiast wpisanie \"W\" zakonczy dzialanie programu.");
             System.out.println("Prawidlowa linia wczytania walut zawiera 3 argumenty oddzielone bialymi znakami: ID waluty, skrot waluty (3 znaki), pelna nazwa waluty.");
-            System.out.println("Zawartosc linii: " + Arrays.toString(splitedLine));
+            System.out.println("Zawartosc linii: " + Arrays.toString(splittedLine));
             while (true) {
                 Scanner scannerError = new Scanner(System.in);
                 String problemSolve = scannerError.nextLine();
@@ -173,52 +171,44 @@ public class DataRead {
                 }
             }
         } else {
-            if (splitedLine.length == 6) {
+            if (splittedLine.length == 6) {
                 lineRead = lineRead.replace(",", ".");
-                if (splitedLine[0].matches("[0-9]+") && isAlpha(splitedLine[1]) && isAlpha(splitedLine[2]) && isDouble(splitedLine[3]) && (isAlpha(splitedLine[4]) || (splitedLine[4].contains("STA") && splitedLine[4].charAt(3) == 9532)) && isDouble(splitedLine[5]) && splitedLine[1].length() == 3 && splitedLine[2].length() == 3) {
-                    if(graph.getCurrencyID(splitedLine[1]) == -1)
-                    {
-                        System.out.println("Blad 07: Kurs zawier walute wejsciowa, ktora nie istnieje w pliku");
+                if (splittedLine[0].matches("[0-9]+") && isAlpha(splittedLine[1]) && isAlpha(splittedLine[2]) && isDouble(splittedLine[3]) && (isAlpha(splittedLine[4]) || (splittedLine[4].contains("STA") && splittedLine[4].charAt(3) > 255 && splittedLine[4].charAt(4) > 255 && splittedLine[4].charAt(5) == 'A')) && isDouble(splittedLine[5]) && splittedLine[1].length() == 3 && splittedLine[2].length() == 3) {
+                    if (graph.getCurrencyID(splittedLine[1]) == -1) {
+                        System.out.println("Blad 07: Kurs zawiera walute wejsciowa, ktora nie istnieje w pliku.");
                     }
-                    if(graph.getCurrencyID(splitedLine[2]) == -1)
-                    {
-                        System.out.println("Blad 08: Kurs zawiera walute wyjsciowa, ktora nie istnieje w pliku");
+                    if (graph.getCurrencyID(splittedLine[2]) == -1) {
+                        System.out.println("Blad 08: Kurs zawiera walute wyjsciowa, ktora nie istnieje w pliku.");
                     }
-                    if(graph.getCurrencyID(splitedLine[1]) != -1 && graph.getCurrencyID(splitedLine[2]) != -1)
-                    {
+                    if (graph.getCurrencyID(splittedLine[1]) != -1 && graph.getCurrencyID(splittedLine[2]) != -1) {
                         return lineRead;
                     }
                 }
             }
-            if (splitedLine.length > 6) {
-                if (splitedLine[0].matches("[0-9]+") && isAlpha(splitedLine[1]) && isAlpha(splitedLine[2]) && isDouble(splitedLine[3]) && isAlpha(splitedLine[4]) && isDouble(splitedLine[5])) {
+            if (splittedLine.length > 6) {
+                if (splittedLine[0].matches("[0-9]+") && isAlpha(splittedLine[1]) && isAlpha(splittedLine[2]) && isDouble(splittedLine[3]) && isAlpha(splittedLine[4]) && isDouble(splittedLine[5])) {
                     System.out.println("Ostrzezenie 04: W linii " + lineNumber + "znajduje sie wiecej niz 6 argumentow. Zostanie wczytanych tylko 6 pierwszych.");
                     StringBuilder sb = new StringBuilder();
                     for (int i = 0; i < 5; i++) {
-                        sb.append(splitedLine[i]);
+                        sb.append(splittedLine[i]);
                     }
                     lineRead = sb.toString();
                     lineRead = lineRead.replace(",", ".");
                     return lineRead;
                 }
             }
-            System.out.println("Blad 06: Blad przy odczytywaniu pliku w linii " + lineNumber +". Wpisz \"E\", aby edytowac linie, wpisujac \"P\" pominiesz ja, natomiast \"W\" zakonczy dzialanie programu.");
+            System.out.println("Blad 06: Blad przy odczytywaniu pliku w linii " + lineNumber + ". Wpisz \"E\", aby edytowac linie, wpisujac \"P\" pominiesz ja, natomiast \"W\" zakonczy dzialanie programu.");
             System.out.println("Prawidlowa linia wczytania kursow walut zawiera 6 argumentow oddzielonych bialymi znakami: ID kursu, skrot waluty wejsciowej (3 znaki), skrot waluty wyjsciowej (3 znaki), kurs między walutami, typ oplaty (procentowa - PROC, stala - STALA), oplata");
-            System.out.println("Zawartosc linii: " + Arrays.toString(splitedLine));
+            System.out.println("Zawartosc linii: " + Arrays.toString(splittedLine));
             while (true) {
                 Scanner scannerError = new Scanner(System.in);
                 String problemSolve = scannerError.nextLine();
 
-                if(problemSolve.equals("W"))
-                {
+                if (problemSolve.equals("W")) {
                     return "-1";
-                }
-                else if(problemSolve.equals("P"))
-                {
+                } else if (problemSolve.equals("P")) {
                     return null;
-                }
-                else if(problemSolve.equals("E"))
-                {
+                } else if (problemSolve.equals("E")) {
                     System.out.println("Wprowadz linie ponownie:");
                     scannerError = new Scanner(System.in);
                     problemSolve = scannerError.nextLine();

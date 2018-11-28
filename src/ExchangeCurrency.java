@@ -6,6 +6,8 @@ import java.util.Stack;
 public class ExchangeCurrency {
 
     private Graph graph;
+    private double dist[];
+    private int prevVertex[];
 
     public ExchangeCurrency(Graph graph) {
         this.graph = graph;
@@ -13,14 +15,13 @@ public class ExchangeCurrency {
 
     double exchange(int src, double amount, int dst) {
         int numberOfVertexes = graph.getNumberOfVertexes();
-        double dist[] = new double[numberOfVertexes];
-        int prevVertex[] = new int[numberOfVertexes];
+        dist = new double[numberOfVertexes];
+        prevVertex = new int[numberOfVertexes];
 
         for (int i = 0; i < numberOfVertexes; i++) {
             prevVertex[i] = i;
             dist[i] = Double.MAX_VALUE;
         }
-
         dist[src] = (double) 1 / amount;
 
         for (int i = 1; i < numberOfVertexes; i++) {
@@ -47,38 +48,35 @@ public class ExchangeCurrency {
             }
         }
 
-        /*for (int i = 0; i < dist.length; i++) {
-            System.out.println(i + " " + prevVertex[i] + " " + 1 / dist[i]);
-        }*/
-
-        Stack<Integer> stack = new Stack<>();
-        stack.push(dst);
-
+        Stack<Integer> stackOfCurrency = new Stack<>();
+        stackOfCurrency.push(dst);
         int u = dst;
+
         while (prevVertex[u] != u) {
             u = prevVertex[u];
-            if (stack.search(u) > 0) {
-                /*for(int i = stack.size() - 1; i >= 0; i--)
-                {
-                    System.out.print(graph.getCurrencyShortName(stack.get(i)));
-                    if(i > 0){
+            int posOfDuplicate;
+            if (stackOfCurrency.search(u) > 0) {
+                posOfDuplicate = stackOfCurrency.search(u);
+                stackOfCurrency.add(u);
+                for (int i = stackOfCurrency.size() - 1; i >= stackOfCurrency.size() - posOfDuplicate - 1; i--) {
+                    System.out.print(graph.getCurrencyShortName(stackOfCurrency.get(i)));
+                    if (i > stackOfCurrency.size() - posOfDuplicate - 1) {
                         System.out.print(" -> ");
                     }
                 }
                 System.out.println();
-                exchange(src, amount, stack.get(stack.size() - 2));*/
                 return -1;
             }
-            stack.push(u);
+            stackOfCurrency.push(u);
         }
-        if (stack.peek() != src) {
+        if (stackOfCurrency.peek() != src) {
             return 0;
         }
         double result = amount;
-        while (stack.size() > 1) {
-            u = stack.pop();
+        while (stackOfCurrency.size() > 1) {
+            u = stackOfCurrency.pop();
             System.out.print(graph.getCurrencyShortName(u) + " -> ");
-            int v = stack.peek();
+            int v = stackOfCurrency.peek();
             LinkedList<Pair<Integer, ChangeCost>> lista = graph.getListOfNeighbor().get(u);
             for (Pair<Integer, ChangeCost> pair : lista) {
                 if (pair.getKey() == v) {
