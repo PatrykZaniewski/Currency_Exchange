@@ -31,7 +31,7 @@ public class DataRead {
         }
     }
 
-    Graph readFile() {
+    public Graph readFile() {
         BufferedReader br;
         try {
             br = new BufferedReader(new FileReader(fileToRead));

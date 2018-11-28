@@ -1,0 +1,149 @@
+\documentclass[12pt]{article}
+\usepackage[utf8]{inputenc}
+
+\title{Sprawozdanie końcowe}
+\author{Patryk Zaniewski }
+\date{17.11.2018}
+
+\usepackage{natbib}
+\usepackage{graphicx}
+\usepackage{polski}
+\usepackage{indentfirst}
+\usepackage{geometry}
+
+\begin{document}
+
+\maketitle
+
+\tableofcontents
+\newpage
+
+\section{Cel powstania dokumentu}
+Dokument powstał w celu podsumowania pracy oraz ocenieniu działania programu. W sprawozdaniu został zawarty krótki opis projektu, opis i efekty działania programu, zmiany względem specyfikacji wraz z uzasadnieniem oraz krótkie podsumowanie podsumowanie wraz z wnioskami.
+
+\section{Opis projektu}
+Celem projektu było stworzenie programu, który ułatwi spekulantom obrót dobrami na giełdzie walut. Pięciu z nich zgłosiło się z prośbą o napisanie programu za pomocą którego osiągną oni jak największe zyski. Oczekiwali, że zrealizowana przez nas aplikacja będzie realizowała dwie funkcje. Pierwszą z nich jest wyznaczanie ścieżki wymiany waluty. Ścieżka ta, miała być jak najbardziej dochodowa dla użytkownika. Drugą z funkcji jaką realizował program miało być wyznaczanie arbitrażu walutowego po uprzednim podaniu przez użytkownika ilości waluty wejściowej.
+
+\section{Opis i efekty działania programu}
+
+\section{Zmiany w stosunku do specyfikacji implementacyjnej}
+Pomimo szeregu zmian i ulepszeń wprowadzonych w programie, liczba klas pozostała niezmieniona i wynosi 6. Są to klasy: Main, DataRead, Graph, ChangeCost, FindArbitration oraz ExchangeCurrency. Poniżej przedstawione jest nowy diagram klas oraz zmiany wprowadzone w każdej z nich.
+\begin{enumerate}
+\item \textbf{Main}
+\newline\newline
+   Dodane metody:
+    \begin{itemize}
+        \item \begin{verbatim}private static boolean isAlpha(String name)\end{verbatim}
+        metoda używana do sprawdzania czy podany ciąg znaków zawiera tylko litery. Metoda wykorzystywana podczas wprowadzania danych dotyczących uzyskania najkorzystniejszej ścieżki wymiany walut.
+    \end{itemize}
+\item \textbf{DataRead}
+\newline\newline
+   Dodane metody:
+    \begin{itemize}
+        \item \begin{verbatim}private static boolean isAlpha(String name)\end{verbatim}
+        metoda używana do sprawdzania czy podany ciąg znaków zawiera tylko litery. Metoda wykorzystywana podczas wczytywania danych z pliku,
+    \item \begin{verbatim}private boolean isDouble(String stringToCheck)\end{verbatim}
+        metoda używana do sprawdzania czy podany ciąg znaków zawiera tylko liczby. Metoda wykorzystywana
+        podczas wczytywania danych z pliku.
+    \end{itemize}
+    Zmienione metody:
+    \begin{itemize}
+        \item \begin{verbatim}private String checkData(String lineRead,
+        boolean currencyNameRead, int lineNumber)\end{verbatim}
+        metoda oprócz sprawdzanie poprawności danych zajmuje się teraz obsługą błędów związanych z odczytywaniem pliku. Zmiana ta nastąpiła w celu umożliwienia obsługi błędów bez potrzeby wywoływania kolejnych metod.
+    \end{itemize}
+    Usunięte metody:
+    \begin{itemize}
+        \item \begin{verbatim}private String validationData (String lineRead)\end{verbatim}
+        metoda została usunięta, a jej zadania przejęła metoda checkData.
+    \end{itemize}
+\item \textbf{Graph}
+\newline\newline
+   Dodane pola:
+   \begin{itemize}
+        \item \begin{verbatim}private int numberOfEdges\end{verbatim}
+        zmienna przechowująca informację o liczbie krawędzi w grafie czyli o liczbie kursów walut wczytanych z pliku.
+    \end{itemize}
+   Zmienione pola:
+    \begin{itemize}
+        \item \begin{verbatim}private ArrayList<LinkedList<Pair<Integer, ChangeCost>>> listOfNeighbor\end{verbatim}
+        zmienna zmieniła nazwę z listOfNodes. Zmiana w celu uzyskania bardziej intuicyjnej nazwy,
+    \item \begin{verbatim}private int numberOfVertexes\end{verbatim}
+        zmienna zmieniła nazwę z numberOfNodes. Zmiana w celu uzyskania bardziej intuicyjnej nazwy,
+    \item \begin{verbatim}private ArrayList<Pair<String, String>> nameOfCurrency\end{verbatim}
+        zrezygnowano z reprezentacji zmiennej za pomocą Mapy, na rzecz jej reprezentacji za pomocą ArrayList. Spowodowane jest to usprawnieniem wedle którego indeks ArrayListy będzie oznaczał ID waluty.
+    \end{itemize}
+    Dodane metody:
+    \begin{itemize}
+        \item \begin{verbatim}int getCurrencyID(String shortName)\end{verbatim}
+        metoda zwraca ID waluty na podstawie jej skrótu. Metoda dodana w celu uniknięcia implementacji dwóch takich samych metod w klasie odpowiedzialnej za arbitraż oraz za wymianę waluty,
+    \end{itemize}
+    \begin{itemize}
+        \item \begin{verbatim}String getCurrencyShortName(int id)\end{verbatim}
+        metoda zwraca skrót waluty na podstawie jej ID. Metoda dodana w celu uniknięcia implementacji dwóch takich samych metod w klasie odpowiedzialnej za arbitraż oraz za wymianę waluty.
+    \end{itemize}
+    Zmienione metody:
+    \begin{itemize}
+        \item \begin{verbatim}public Graph(ArrayList<String> listOfCurrency)\end{verbatim}
+        argument konstruktora został zmieniony na listę wczytanych walut. Na jej podstawie konsruktor przygotowuje tablicę sąsiedztwa listOfNeighbor oraz zmienną nameOfCurrency. Zmiana wykonana w celu jednoczesnego wypełnienia wyżej wymienionych zmiennych,
+    \end{itemize}
+    \begin{itemize}
+        \item \begin{verbatim}void addEdge(int src, int dst, double multipler, double cost,
+        boolean isPercent)\end{verbatim}
+        metoda nie zmieniła swojego działania. Został dodany argument, który określa czy opłata jest stała czy procentowa.
+    \end{itemize}
+\item \textbf{ChangeCost}
+\newline\newline
+   Zmienione pola:
+    \begin{itemize}
+        \item \begin{verbatim}private boolean isPercent\end{verbatim}
+        zmienna zmieniła nazwę z isCostPercent,
+    \end{itemize}
+    Dodane metody:
+     \begin{itemize}
+    \item \begin{verbatim}ChangeCost(double multipler, double cost, boolean isPercent)\end{verbatim}
+        konstruktor stworzony w celu ograniczenia korzystania z metod set(),
+    \end{itemize}
+\item \textbf{FindArbitration}
+\newline\newline
+   Dodane pola:
+    \begin{itemize}
+        \item \begin{verbatim}private double dist[]\end{verbatim}
+        zmienna odpowiedzialna za przechowywanie wartości 1/(koszt dotarcia do wierzchołka). Zmienna wprowadzona w celu wykrywania negatywnego cyklu w grafie czyli do znajdowania arbitrażu.
+    \end{itemize}
+    Zmienione pola:
+    \begin{itemize}
+    \item \begin{verbatim}private int prevVertex[]\end{verbatim}
+        zmienna zmieniła nazwę z prevNode. Zmiana w celu uzyskania bardziej intuicyjnej nazwy.
+    \end{itemize}
+    Usunięte pola:
+     \begin{itemize}
+     \item \begin{verbatim}private ArrayList<Integer> way\end{verbatim}
+        zmienna, która miała być odpowiedzialna za przechowywanie kolejnych walut należących do arbitrażu. Usunięta z powodu wypisywania elementów arbitrażu wewnątrz metody odpowiedzialnej za jego wyszukanie.
+    \end{itemize}
+    Dodane metody:
+    \begin{itemize}
+     \item \begin{verbatim}private boolean hasCycle(int src, int dst, ChangeCost changeCost)\end{verbatim}
+        metoda, która sprawdza czy dany wierzchołek jest częścią negatywnego cyklu czyli, czy dana waluta należy do arbitrażu.
+    \end{itemize}
+    Zmienione metody:
+    \begin{itemize}
+     \item \begin{verbatim}double arbitration(int src, double amount)\end{verbatim}
+        metoda zmieniła nazwę z findArbitrationWay. Dodatkowo wyszukiwanie arbitrażu rozpoczyna się w konkretnej walucie. Argument ten został dodany, aby znajdować arbitraż nawet w grafach, które nie są połączone.
+    \end{itemize}
+    Usunięte metody:
+    \begin{itemize}
+     \item \begin{verbatim}private ArrayList<Integer> findArbitrationWay ()\end{verbatim}
+        metoda miała zwracać ścieżkę arbitrażu. Jednak w związku z usunięciem zmiennej odpowiedzialnej za przechowywanie ścieżki, metoda ta stała się bezużyteczna.
+    \end{itemize}
+
+\section{Dodatkowe pakiety nieuwzględnione w specyfikacji implementacyjnej)}
+\begin{itemize}
+\item java.text.DecimalFormat - pakiet odpowiedzialny za zaokrąglanie wyników końcowych
+\end{itemize}
+
+\section{Podsumowanie i wnioski}
+Program okazał się sporym wyzwaniem pod względem algorytmicznym.
+
+\end{enumerate}
+\end{document}

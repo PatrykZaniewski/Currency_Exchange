@@ -6,6 +6,7 @@ import java.util.Stack;
 public class FindArbitration {
     private double dist[];
     private Graph graph;
+    private int prevVertex[];
 
     FindArbitration(Graph graph) {
         this.graph = graph;
@@ -26,7 +27,7 @@ public class FindArbitration {
         int V = graph.getNumberOfVertexes();
         int E = graph.getNumberOfEdges();
         dist = new double[V];
-        int prevVertex[] = new int[V];
+        prevVertex = new int[V];
 
         for (int i = 0; i < V; i++) {
             prevVertex[i] = i;

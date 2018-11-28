@@ -1,8 +1,6 @@
 import org.junit.Assert;
 import org.junit.Test;
 
-import static org.junit.Assert.*;
-
 public class ExchangeCurrencyTest {
 
     @Test
@@ -11,7 +9,7 @@ public class ExchangeCurrencyTest {
         DataRead read = new DataRead("test/sciezka.txt");
         graph = read.readFile();
         ExchangeCurrency exchange = new ExchangeCurrency(graph);
-        double result = 0;
+        double result;
 
         result = exchange.exchange(graph.getCurrencyID("AUD"), 100, graph.getCurrencyID("CHF"));
 
@@ -24,7 +22,7 @@ public class ExchangeCurrencyTest {
         DataRead read = new DataRead("test/sciezka.txt");
         graph = read.readFile();
         ExchangeCurrency exchange = new ExchangeCurrency(graph);
-        double result = 0;
+        double result;
 
         result = exchange.exchange(graph.getCurrencyID("EUR"), 1000, graph.getCurrencyID("AUD"));
 
@@ -37,7 +35,7 @@ public class ExchangeCurrencyTest {
         DataRead read = new DataRead("test/sciezka.txt");
         graph = read.readFile();
         ExchangeCurrency exchange = new ExchangeCurrency(graph);
-        double result = 0;
+        double result;
 
         result = exchange.exchange(graph.getCurrencyID("EUR"), 1000, graph.getCurrencyID("JPY"));
 
@@ -50,7 +48,7 @@ public class ExchangeCurrencyTest {
         DataRead read = new DataRead("test/sciezka.txt");
         graph = read.readFile();
         ExchangeCurrency exchange = new ExchangeCurrency(graph);
-        double result = 0;
+        double result;
 
         result = exchange.exchange(graph.getCurrencyID("KON"), 1000, graph.getCurrencyID("JPY"));
 
@@ -63,7 +61,7 @@ public class ExchangeCurrencyTest {
         DataRead read = new DataRead("test/sciezka.txt");
         graph = read.readFile();
         ExchangeCurrency exchange = new ExchangeCurrency(graph);
-        double result = 0;
+        double result;
 
         result = exchange.exchange(graph.getCurrencyID("EUR"), 0, graph.getCurrencyID("JPY"));
 

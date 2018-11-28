@@ -5,10 +5,12 @@ import java.util.Scanner;
 public class Main {
 
     private static Graph graph;
+    private static DataRead read;
+    private static ExchangeCurrency exchange;
+    private static FindArbitration arbitration;
 
     private static boolean isAlpha(String name) {
         char[] charsArray = name.toCharArray();
-
         for (char c : charsArray) {
             if (!Character.isLetter(c)) {
                 return false;
@@ -26,15 +28,15 @@ public class Main {
             if(args.length > 1){
                 System.out.println("Ostrzenie 01: Podano wiecej niz jeden argument startowy. Wszystkie argumenty poza pierwszym zostana pominiete");
             }
-            DataRead read = new DataRead(args[0]);
+            read = new DataRead(args[0]);
             graph = read.readFile();
             if (graph == null) {
                 System.out.println("Program zostal przerwany w czasie wczytywania danych.");
             } else {
                 System.out.println("Aby uzyskac pomoc dotyczaca dzialania programu wpisz 'POMOC'.");
                 while (true) {
-                    ExchangeCurrency exchange = new ExchangeCurrency(graph);
-                    FindArbitration arbitration = new FindArbitration(graph);
+                    exchange = new ExchangeCurrency(graph);
+                    arbitration = new FindArbitration(graph);
                     Scanner scannerRead = new Scanner(System.in);
                     String textConsolRead = scannerRead.nextLine();
                     String[] splitedConsolRead = textConsolRead.split(" ");
