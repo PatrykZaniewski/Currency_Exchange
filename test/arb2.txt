@@ -9,7 +9,6 @@
 7 JPY jeny japonskie
 8 KON korona novigradzka
 9 MAK marka kovirska
-10 TES test
 # Kursy walut (id | symbol (waluta wejściowa) | symbol (waluta wyjściowa) | kurs | typ opłaty | opłata)
 0 EUR GBP 0,8889 PROC 0,0001
 1 GBP USD 1,2795 PROC 0
